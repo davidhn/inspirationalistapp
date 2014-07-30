@@ -1,0 +1,33 @@
+/*************************
+*****PIN SUBMIT FORM*****/
+
+form {
+	padding: 20px;
+}
+
+/*************************
+*********HEADER***********/
+
+.jumbotron {
+	background-image: url('http://subtlepatterns.com/patterns/gray_jean.png');
+	color: #52A2B3;
+	text-align: center;
+	margin-top: -20px
+	}
+
+.jumbotron .btn {
+	height: 150px;
+	width: 300px;
+	border-radius: 50px;
+	font-size: 30px;
+
+}
+
+.jumbotron div {
+	display: inline-block;
+		vertical-align: middle
+}
+
+img {
+	width: 100%;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- enable angular -->
+<html ng-app="WinterestApp">
+
+<head>
+	<title>Winterest</title>
+	<link rel="stylesheet" type="text/css" href="Winterest.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+	<script src='https://cdn.firebase.com/js/client/1.0.15/firebase.js'></script>
+	<script src='https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js'></script>
+	<script type="text/javascript" src="Winterest.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+</head>
+
+<!-- attached controller -->
+<body ng-controller="WinController">
+
+	<header>
+		<div class="leftHeader">
+			<input type="text" ng-model="searchText"/>
+		</div>
+
+		<h1>Winterest</h1>
+
+		<div class="rightHead">
+			<form>
+				<button ng-click="addPin()">Submit</button>
+				<input type="text" ng-model="newPicture" placeholder="Insert Picture URL">
+				<input type="text" ng-model="newDescription" placeholder="Describe the Image">
+				<input type="text" ng-model="newCategory" placeholder="Describe the Image">
+			</form>
+		</div>
+	</header>
+
+	<!--create loop -->
+	<div class="wrapper">
+		<div class="columns">
+			<div class="pin" ng-repeat="interest in interests" >
+				<!--insert image and misc data-->
+				<div class="picture"> <img src= "{{interest.picture}}"> </div><hr>
+				<div class="description"> {{interest.description}} </div>
+				<div class="info">
+					<div class="userPicture"> 
+						<img src="{{interest.profilePicture}}">
+					</div>
+					<div class="miscInfo">
+						<div class="username"> {{interest.username}}</div>
+						<div class="category"> {{interest.category}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
