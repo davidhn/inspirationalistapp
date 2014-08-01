@@ -10,6 +10,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="inspirationalist.css">
 	<script type="text/javascript" src="inspirationalist.js"></script>
+
 </head>
 <body ng-controller="myController">
 
@@ -36,53 +37,37 @@
         <li><a href="#">Contact</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <input type="text" class="form-control" placeholder="Search" ng-model="searchText"/>
+    <!--     <button type="submit" class="btn btn-default">Submit</button> -->
       </form>
       <ul class="nav navbar-nav navbar-right">
         <!-- <li><a href="#">Link</a></li> -->
 
 
 <!--***************************************************
-*********************SUBMIT FORM********************-->
-		<!-- <button class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg">Inspire</button>
-			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  				<div class="modal-dialog modal-lg">
-    				<div class="modal-content"> -->
-    					<form role="form" ng-submit="addNewPin">
-						  <div class="form-group">
-						  	<h2>Inspire others with your favorite images and quotes!</h2>
-						    <label>Favorite Images</label>
-						    <input type="text" class="form-control" ng-model="newPicture" placeholder="Enter URL of your favorite inspirational images">
-						  </div>
-						  <div class="form-group">
-						    <label>Favorite Quotes</label>
-						    <input type="text" class="form-control" ng-model="newDescription" placeholder="Insert a quote that inspires and will inspire others">
-						  </div>
-						<!--   <div class="form-group">
-						   <label>Youtube Video</label>
-						   <input type="text" class="form-control" ng-model="newDescription" placeholder="Enter the Youtube embed link of an inspirational video ">
-						  </div> -->
-						  <button type="text" class="btn btn-info" ng-click="addPin()">Submit</button>
-						</form>
-			    	<!-- </div>
-			  </div>
-			</div> -->
-        <!-- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li> -->
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+***************MODAL SUBMIT FORM********************-->
+		<button id="submitButton" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg">Inspire</button>
+			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+				<div class="modal-dialog modal-lg">
+  				<div class="modal-content">
+  					<form role="form" ng-submit="addPin()">
+					  <div class="form-group">
+					  	<h2>Inspire others with your favorite images and quotes!</h2>
+					    <label>Favorite Images</label>
+					    <input type="text" class="form-control" ng-model="newPicture" placeholder="Enter URL of your favorite inspirational images">
+					  </div>
+            <div class="form-group">
+             <label>Youtube Video</label>
+             <input type="text" class="form-control" ng-model="newVideo" placeholder="Enter the Youtube embed link of an inspirational video ">
+            </div>
+					  <div class="form-group">
+					    <label>Favorite Quotes</label>
+					    <input type="text" class="form-control" ng-model="newDescription" placeholder="Insert a quote that inspires and will inspire others (don't forget the quotes)">
+					  </div>
+					  <input type="submit" class="btn btn-info" value="Submit">
+					</form>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
 </nav>
 
 <!--***************************************************
@@ -90,23 +75,34 @@
 
 <!-- <div class="jumbotron">
   <h1>INSPIRATIONALIST</h1>
-  <div><a class="btn btn-success btn-lg" role="button">Be Inspirational</a></div>
-  <div><a class="btn btn-info btn-lg" role="button">Be Inspired</a></div>
+  <button type="button" class="btn btn-info btn-lg">Be Inspirational</button>
+  <button type="button" class="btn btn-info btn-lg">Be Inspired</button>
 </div> -->
 
 
 <!--***************************************************
 ************************PINS************************-->
-<div>
-	<div class="pin col-lg-3 col-md-4 col-sm-6" ng-repeat="interest in interests">
-		<div >
-			<!--insert image and description-->
-			<div class="picture"> <img src= "{{interest.picture}}"> </div><hr>
-			<div class="description">Description: {{interest.description}} </div>
-		</div>
-	</div>
-	<button type="text" class="btn btn-info" ng-click="addPin()">Submit</button>
-</div>
+
+  <div class="wrapper" ng-click="enlargeModal">
+    <div class="columns">
+      <div class="pinContainer" ng-repeat="interest in interests | orderByPriority | filter:searchText" data-toggle="modal" data-target=".bs-view-modal-lg" ng-click="setModalPicture(interest.picture)">
+        <!--insert image and misc data-->
+        <div class="picture"> <img ng-src= "{{interest.picture}}"> </div>
+        <div class="description"> {{interest.description}} </div>
+        <div class="video"> {{interest.video}} </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="modal fade bs-view-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <img src="{{modalPicture}}" width="100%">
+      </div>
+    </div>
+  </div>
+
 
 
 </body>
