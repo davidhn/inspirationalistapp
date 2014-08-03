@@ -10,6 +10,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="inspirationalist.css">
 	<script type="text/javascript" src="inspirationalist.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 
 </head>
 <body ng-controller="myController">
@@ -52,7 +53,7 @@
   				<div class="modal-content">
   					<form role="form" ng-submit="addPin()">
 					  <div class="form-group">
-					  	<h2>Inspire others with your favorite images and quotes!</h2>
+					  	<h2>Inspire others with your favorite images, videos, and quotes!</h2>
 					    <label>Favorite Images</label>
 					    <input type="text" class="form-control" ng-model="newPicture" placeholder="Enter URL of your favorite inspirational images">
 					  </div>
@@ -66,18 +67,16 @@
 					  </div>
 					  <input type="submit" class="btn btn-info" value="Submit">
 					</form>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </div>
+      </div>
 </nav>
 
 <!--***************************************************
 ************************HEADER**********************-->
 
-<!-- <div class="jumbotron">
+<div>
   <h1>INSPIRATIONALIST</h1>
-  <button type="button" class="btn btn-info btn-lg">Be Inspirational</button>
-  <button type="button" class="btn btn-info btn-lg">Be Inspired</button>
-</div> -->
+</div>
 
 
 <!--***************************************************
@@ -85,16 +84,30 @@
 
   <div class="wrapper" ng-click="enlargeModal">
     <div class="columns">
-      <div class="pinContainer" ng-repeat="interest in interests | orderByPriority | filter:searchText" data-toggle="modal" data-target=".bs-view-modal-lg" ng-click="setModalPicture(interest.picture)">
-        <!--insert image and misc data-->
+      <div class="pinContainer" ng-repeat="interest in interests | orderByPriority | filter:searchText">
+        <!--insert favorite button,image, and misc data-->
         <div class="picture"> <img ng-src= "{{interest.picture}}"> </div>
+        <div class="video" ng-if="interest.video.length" my-youtube code="interest.video"></div> 
         <div class="description"> {{interest.description}} </div>
-        <div class="video"> {{interest.video}} </div>
+        <div style="text-align:center">
+          <button ng-if="interest.picture.length" type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-zoom-in" data-toggle="modal" data-target=".bs-view-modal-lg" ng-click="setModalPicture(interest.picture)"></span>
+          </button>
+          <button type="button" ng-click="clickFavorite(interest)"  class="btn btn-default btn-lg">
+              <span id="favorite" class="glyphicon glyphicon-heart"></span>
+          </button>
+          <!--Facebook-->
+          <a class="share-buttons" href="http://www.facebook.com/sharer.php?u=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" /></a>
+          <!-- Pinterest -->
+          <a class="share-buttons" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="http://www.simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" /></a>
+        </div>
       </div>
     </div>
   </div>
 
-  
+
+<!--***************************************************
+******************POPUP MODAL************************-->
   <div class="modal fade bs-view-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
