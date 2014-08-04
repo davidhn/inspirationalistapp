@@ -18,7 +18,7 @@
 <!--***************************************************
 ****************************NAV BAR********************-->
 
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-inverse navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -28,15 +28,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Inspirationalist</a>
+      <a class="navbar-brand" href="#" style="color:#3b5998">Inspirationalist</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+  <!--     <ul class="nav navbar-nav">
         <li class="active"><a href="#">About us</a></li>
         <li><a href="#">Contact</a></li>
-      </ul>
+      </ul> -->
       <form class="navbar-form navbar-left" role="search">
         <input type="text" class="form-control" placeholder="Search" ng-model="searchText"/>
     <!--     <button type="submit" class="btn btn-default">Submit</button> -->
@@ -46,24 +46,64 @@
 
 
 <!--***************************************************
+***************FAVORITES MODAL********************-->
+  <button id="favoriteButton" class="btn btn-success" data-toggle="modal" data-target=".bs-favoriteModal">My Favorites</button>
+    <div class="modal fade bs-favoriteModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="favoriteModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">My Favorites</h4>
+          </div>
+          
+          <div class="modal-body">
+            <div>
+              <div class="pinContainer col-xs-1 col-lg-3" ng-repeat="interest in interests | filter: 'true'">
+                <div class="picture"> <img ng-src= "{{interest.picture}}"> </div>
+                <div class="video" ng-if="interest.video.length" my-youtube code="interest.video"></div> 
+                <div class="description"> {{interest.description}} </div>
+                <div style="text-align:center">
+                  <button ng-if="interest.picture.length" type="button" class="btn btn-default btn-lg">
+                  <span class="glyphicon glyphicon-zoom-in" data-toggle="modal" data-target=".bs-view-modal-lg" ng-click=" setModalPicture(interest.picture)"></span>
+                  </button>
+                  <button type="button" ng-click="clickFavorite(interest)"  class="btn btn-default btn-lg" ng-class="{'true': 'btn btn-success', 'false': 'btn'}[interest.favorite]">
+                  <span id="favorite" class="glyphicon glyphicon-heart"></span>
+                  </button>
+                  <!--Facebook-->
+                  <a class="share-buttons" href="http://www.facebook.com/sharer.php?u=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" /></a>
+                  <!-- Pinterest -->
+                  <a class="share-buttons" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="http://www.simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+                   
+        </div>
+      </div>
+    </div>
+
+<!--***************************************************
 ***************MODAL SUBMIT FORM********************-->
 		<button id="submitButton" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg">Inspire</button>
 			<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="myModal">
 				<div class="modal-dialog modal-lg">
   				<div class="modal-content">
-  					<form role="form" ng-submit="addPin()">
+  					<div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h2 class="modal-title">Inspire your peers with your favorite images, videos, and quotes!</h2>
+            </div>
+            <form role="form" ng-submit="addPin()">
 					  <div class="form-group">
-					  	<h2>Inspire others with your favorite images, videos, and quotes!</h2>
 					    <label>Favorite Images</label>
 					    <input type="text" class="form-control" ng-model="newPicture" placeholder="Enter URL of your favorite inspirational images">
 					  </div>
             <div class="form-group">
              <label>Youtube Video</label>
-             <input type="text" class="form-control" ng-model="newVideo" placeholder="Enter the Youtube embed link of an inspirational video ">
+             <input type="text" class="form-control" ng-model="newVideo" placeholder="Enter the Youtube link of an inspirational video ">
             </div>
 					  <div class="form-group">
 					    <label>Favorite Quotes</label>
-					    <input type="text" class="form-control" ng-model="newDescription" placeholder="Insert a quote that inspires and will inspire others (don't forget the quotes)">
+					    <input type="text" class="form-control" ng-model="newDescription" placeholder="Insert a quote that inspires you and will inspire others">
 					  </div>
 					  <input type="submit" class="btn btn-info" value="Submit">
 					</form>
@@ -93,7 +133,7 @@
           <button ng-if="interest.picture.length" type="button" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-zoom-in" data-toggle="modal" data-target=".bs-view-modal-lg" ng-click="setModalPicture(interest.picture)"></span>
           </button>
-          <button type="button" ng-click="clickFavorite(interest)"  class="btn btn-default btn-lg">
+          <button type="button" ng-click="clickFavorite(interest)"  class="btn btn-default btn-lg" ng-class="{'true': 'btn btn-success', 'false': 'btn'}[interest.favorite]">
               <span id="favorite" class="glyphicon glyphicon-heart"></span>
           </button>
           <!--Facebook-->
