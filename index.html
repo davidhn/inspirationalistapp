@@ -57,9 +57,9 @@
           </div>
           
           <div class="modal-body">
-            <div>
-              <div class="pinContainer col-xs-1 col-lg-3" ng-repeat="interest in interests | filter: 'true'">
-                <div class="picture"> <img ng-src= "{{interest.picture}}"> </div>
+            <div class="modalColumns">
+              <div class="pinContainer" ng-repeat="interest in interests" ng-show="interest.favorite">
+                <div class="picture"> <img style="width:100%" ng-src= "{{interest.picture}}"> </div>
                 <div class="video" ng-if="interest.video.length" my-youtube code="interest.video"></div> 
                 <div class="description"> {{interest.description}} </div>
                 <div style="text-align:center">
@@ -69,15 +69,11 @@
                   <button type="button" ng-click="clickFavorite(interest)"  class="btn btn-default btn-lg" ng-class="{'true': 'btn btn-success', 'false': 'btn'}[interest.favorite]">
                   <span id="favorite" class="glyphicon glyphicon-heart"></span>
                   </button>
-                  <!--Facebook-->
-                  <a class="share-buttons" href="http://www.facebook.com/sharer.php?u=http://www.simplesharebuttons.com" target="_blank"><img src="http://www.simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" /></a>
-                  <!-- Pinterest -->
-                  <a class="share-buttons" href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="http://www.simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" /></a>
                 </div>
               </div>
             </div>
           </div>
-                   
+
         </div>
       </div>
     </div>
@@ -127,6 +123,7 @@
       <div class="pinContainer" ng-repeat="interest in interests | orderByPriority | filter:searchText">
         <!--insert favorite button,image, and misc data-->
         <div class="picture"> <img ng-src= "{{interest.picture}}"> </div>
+        <!--YOUTUBE VIDEO -->
         <div class="video" ng-if="interest.video.length" my-youtube code="interest.video"></div> 
         <div class="description"> {{interest.description}} </div>
         <div style="text-align:center">
