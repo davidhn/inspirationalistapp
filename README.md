@@ -1,4 +1,4 @@
-# inspirationalistapp
+# InspirationalistApp
 
 Feel free to add any images, quotes, and/or videos that inspire you.
 
